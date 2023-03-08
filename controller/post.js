@@ -21,16 +21,18 @@ exports.addPost = async (req, res, next) => {
 exports.deletePost = async (req, res, next) => {
     const { user } = res.locals;
 
-    const { id } = req.body;
+    const { id } = user;
 
-    const post = await Post.findOne({ id, user });
+    const post = await Post.findOne({ _id: req.params.id });
 
-
-    if (!post) res.status(400).json({ success: false, message: "Not Possible" });
+    if (!post) res.status(400).json({ success: false, message: "No Post found!" });
     else {
-        await post.deleteOne();
-        res.status(200).json({ success: true, message: 'deleted post successfully' });
-    }
+        if (post.user._id.toString() === id) {
+            post.deleteOne();
+            res.status(200).json({ success: true, message: 'deleted post successfully' });
+        }
+        else res.status(501).json({ message: 'No Post Found!' });
 
+    }
 
 };
