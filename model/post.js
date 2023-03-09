@@ -13,6 +13,16 @@ const PostSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true,
+    },
+    reaction: Array({
+        type: Object,
+        ref: 'Reactions',
+
+    }),
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 
