@@ -31,7 +31,7 @@ exports.deletePost = async (req, res, next) => {
             post.deleteOne();
             res.status(200).json({ success: true, message: 'deleted post successfully' });
         }
-        else res.status(501).json({ message: 'No Post Found!' });
+        else res.status(401).json({ message: 'Not Authenticated!' });
 
     }
 
@@ -57,10 +57,10 @@ exports.editPost = async (req, res, next) => {
                 });
                 res.status(200).json({ success: true, message: 'post updated successfully' });
             }
-            else res.status(501).json({ message: 'No Post Found!' });
+            else res.status(401).json({ message: 'Not Authenticated!' });
         }
     }
-    else res.status(501).json({ message: 'No Post Found!' });
+    else res.status(401).json({ message: 'No Post Found!' });
 
 
 };
